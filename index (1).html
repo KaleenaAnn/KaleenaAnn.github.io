@@ -1,0 +1,270 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="description" content="Kaleena Ann LaBerge’s data science and document control portfolio, featuring an Atlantic hurricane analysis and a Python revision checker demo."><title>Kaleena Ann LaBerge | Data Science &amp; Document Control</title><style>
+:root{--ink:#192534;--muted:#617080;--navy:#11263b;--teal:#117b83;--paper:#f7f9fb;--line:#dbe3ea;--white:#fff}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--paper);color:var(--ink);font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}a{color:var(--teal)}.shell{max-width:1080px;margin:auto;padding:0 28px}header{background:var(--navy);color:#fff}nav{display:flex;gap:20px;align-items:center;justify-content:space-between;padding:22px 0;flex-wrap:wrap}.brand{font-weight:800;letter-spacing:.06em;color:white;text-decoration:none}nav .links{display:flex;flex-wrap:wrap;gap:18px}nav .links a{color:#d8e9f1;text-decoration:none;font-size:.91rem}.hero{padding:88px 0 102px;max-width:790px}.eyebrow{font-weight:750;color:#76d3d0;font-size:.82rem;letter-spacing:.18em;text-transform:uppercase}h1{font-size:clamp(2.8rem,7vw,5rem);line-height:1.09;letter-spacing:-.045em;margin:17px 0}h2{font-size:2rem;letter-spacing:-.025em;margin:0 0 20px}h3{margin:0 0 8px;font-size:1.2rem}.hero p{color:#d3e0eb;font-size:1.19rem;max-width:700px}.actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;background:#69d2cf;color:#10283b!important;border:1px solid #69d2cf;border-radius:8px;padding:11px 18px;font-weight:750;text-decoration:none}.btn.alt{background:transparent;color:#fff!important;border-color:#7892a6}.section{padding:68px 0;border-bottom:1px solid var(--line)}.intro{max-width:780px;font-size:1.08rem}.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.card{background:white;border:1px solid var(--line);border-radius:13px;padding:24px;box-shadow:0 6px 19px #1022350a}.tag{font-size:.73rem;letter-spacing:.09em;text-transform:uppercase;color:var(--teal);font-weight:800}.card p,.muted{color:var(--muted)}.card a{font-weight:700}.pillbox{display:flex;gap:9px;flex-wrap:wrap}.pill{padding:7px 12px;background:#e8f3f3;color:#205a62;border-radius:25px;font-size:.9rem}.timeline{display:grid;gap:16px}.role{background:white;border-left:4px solid var(--teal);padding:19px 24px;border-radius:4px 10px 10px 4px}.role .date{color:var(--muted);font-size:.89rem}.role p{margin:7px 0 0}.edu{display:grid;gap:10px}.edu p{margin:0}.note{font-size:.9rem;color:var(--muted)}footer{padding:30px 0;color:var(--muted);font-size:.9rem}@media(max-width:800px){.grid{grid-template-columns:1fr}.hero{padding:56px 0 75px}.section{padding:48px 0}}
+
+header{position:relative;overflow:hidden}
+header .shell{position:relative;z-index:1}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(170px,250px);gap:40px;align-items:center;max-width:none}
+.brand{font-size:.83rem;letter-spacing:.14em;text-transform:uppercase}
+.hero h1{font-size:clamp(2.15rem,5.2vw,4.1rem);text-wrap:balance;margin-top:0}
+.print-name{display:none}
+.hero-portrait{margin:0;justify-self:center;width:100%;animation:portrait-enter .65s ease-out both}
+.hero-portrait img{display:block;width:100%;height:auto;border-radius:16px;border:2px solid #69d2cf;box-shadow:0 14px 35px #060e1b66;transition:transform .2s ease-out}
+@media(hover:hover){.hero-portrait:hover img{transform:rotate(2deg) scale(1.025)}}
+.binary-edge{display:none;position:absolute;inset:0 auto 0 1.3vw;overflow:hidden;width:3rem;pointer-events:none;user-select:none;color:#76d3d0;font:13px/2 ui-monospace,monospace;letter-spacing:.22em}
+.binary-edge.right{left:auto;right:1.3vw}
+.binary-edge span{display:block;white-space:pre;opacity:.24;animation:binary-drift 4s ease-out both}
+@media(min-width:1200px){.binary-edge{display:block}}
+@keyframes portrait-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes binary-drift{from{transform:translateY(-36px);opacity:0}to{transform:translateY(0);opacity:.24}}
+.demo-layout{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;margin:20px 0}
+.demo-layout table{width:100%;border-collapse:collapse;text-align:left}
+.demo-layout caption{text-align:left;font-weight:750;margin-bottom:5px}
+.demo-layout th,.demo-layout td{padding:6px 10px;border-bottom:1px solid var(--line)}
+button.btn{font:inherit;font-weight:750;cursor:pointer}
+.demo-result{min-height:1.65em;margin-bottom:0}
+.question{border-bottom:1px solid var(--line);padding:12px 0}
+.question:last-child{border:0}
+.question summary{cursor:pointer;font-weight:700}
+.question p{margin:8px 0 0}
+:focus-visible{outline:3px solid #117b83;outline-offset:4px}
+header :focus-visible{outline-color:#76d3d0}
+@media(max-width:620px){.hero{grid-template-columns:1fr;gap:22px}.hero-portrait{grid-row:1;justify-self:start;max-width:150px}.demo-layout{grid-template-columns:1fr}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.hero-portrait,.binary-edge span{animation:none}.hero-portrait img{transition:none}.hero-portrait:hover img{transform:none}}
+@media print{
+  header nav,.hero h1,.hero p,.hero .actions,.hero-portrait,.binary-edge,main>section:not(#resume):not(#contact),#contact .actions,#contact>p,#resume .note,footer,button{display:none!important}
+  body,header{background:white;color:#17283a}
+  .hero,.section{display:block;padding:0 0 14px;border:0}
+  .shell{padding:0 12px}
+  .print-name{display:block;font-size:27pt;font-weight:750;margin:0 0 14px}
+  .section h2{font-size:16pt;margin:0 0 8px}
+  .section .eyebrow{display:none}
+  .role,.card{box-shadow:none;padding:6px 10px}
+  .role{break-inside:avoid}
+  .timeline{gap:6px}
+  #contact p{margin:3px 0}
+}
+
+.sql-code{overflow:auto;padding:14px;background:#eef3f7;border-radius:8px}
+.sql-results{overflow-x:auto}
+.sql-results table{width:100%;border-collapse:collapse;text-align:left}
+.sql-results caption{text-align:left;font-weight:700;margin:4px 0}
+.sql-results th,.sql-results td{padding:6px 10px;border-bottom:1px solid var(--line)}
+</style></head><body><header><div class="binary-edge" aria-hidden="true"><span>1001&#10;0110&#10;1011&#10;0001&#10;1100&#10;0101&#10;0010&#10;1110&#10;0011&#10;1010&#10;0111&#10;1000&#10;1101&#10;0010&#10;1011&#10;0100&#10;1001&#10;1110&#10;0011&#10;0110&#10;1100&#10;1010</span></div><div class="binary-edge right" aria-hidden="true"><span>1010&#10;1100&#10;0110&#10;0011&#10;1110&#10;1001&#10;0100&#10;1011&#10;0010&#10;1101&#10;1000&#10;0111&#10;1010&#10;0011&#10;1110&#10;0010&#10;0101&#10;1100&#10;0001&#10;1011&#10;0110&#10;1001</span></div><div class="shell"><nav><a href="#top" class="brand">Kaleena Ann LaBerge</a><div class="links"><a href="#about">About</a><a href="#projects">Projects</a><a href="#documentation">Document Control</a><a href="#skills">Skills</a><a href="#resume">Résumé</a><a href="#questions">Q&amp;A</a><a href="#contact">Contact</a></div></nav><div class="hero" id="top">
+  <div>
+    <h1>Data Science &amp; Document Control</h1>
+    <div class="print-name">Kaleena Ann LaBerge</div>
+    <p>I’m pursuing a master’s in data science and bring a background in document control. Explore my Atlantic hurricane analysis in R or try a simple Python demo that checks document revisions.</p>
+    <div class="actions">
+      <a class="btn" href="#projects">Explore my data science projects</a>
+      <a class="btn alt" href="#revision-demo">Try the Revision Checker</a>
+      <a class="btn alt" href="#resume">View my résumé</a>
+    </div>
+  </div>
+  <figure class="hero-portrait"><img src="professional-headshot.png" alt="Professional portrait of Kaleena LaBerge"></figure>
+</div></div></header><main>
+<section class="section shell" id="about">
+  <div class="eyebrow">01 / About</div>
+  <h2>About Me</h2>
+  <div class="intro">
+    <p>Born and raised in Florida, I'm a technology and engineering documentation professional with more than 15 years of experience spanning aerospace, defense, and electronics manufacturing.</p>
+    <p>My interest in technology and problem-solving led me to earn two bachelor's degrees from Eastern Florida State College, one in Computer Information Systems Technology with a specialization in Data Science and another in Business with a focus on Organizational Management. I'm currently pursuing my Master of Science in Data Science at Walden University.</p>
+    <p>Outside of my professional and academic pursuits, I have a deep appreciation for art, nature, and the world around me. I enjoy visiting museums and art galleries, exploring my own creativity through painting and drawing, and spending time outdoors. Gardening, birdwatching, and observing Florida's diverse wildlife are among my favorite ways to unwind. I've always had a special affection for animals and find inspiration in the natural beauty of my home state.</p>
+    <p>The beach and ocean have always held a special place in my life. As a former avid surfer, I spent countless hours enjoying Florida's coastline and developed a lasting connection to the water. Although I no longer surf as frequently, my appreciation for the ocean, coastal environments, and the sense of peace they bring has never faded.</p>
+    <p>Whether I'm exploring a new artistic technique, discovering something fascinating in nature, or learning a new technical skill, curiosity has always been a driving force in my life.</p>
+  </div>
+</section>
+<section class="section shell" id="projects"><div class="eyebrow">02 / Selected work</div><h2>Projects and case studies</h2><div class="grid"><article class="card">
+  <div class="tag">R · Linear regression · Diagnostics</div>
+  <h3>Atlantic Hurricane Wind Speed</h3>
+  <p>Fit a linear regression to peak wind speed across 593 Atlantic storms from 1990 to 2025. Explore the scatterplots, read the model results, and see how the residual plots were used to check assumptions.</p>
+  <p><a href="hurricane-study.html">Read the case study →</a><br>
+  <a href="https://github.com/KaleenaAnn/atlantic-hurricane-analysis/blob/main/hurricane_analysis_recovered.R">View the R code →</a><br>
+  <a href="https://github.com/KaleenaAnn/atlantic-hurricane-analysis/blob/main/storm_model_diagnostics.png">View the regression diagnostics →</a></p>
+</article>
+<article class="card">
+  <div class="tag">R · One-way ANOVA · Tukey HSD</div>
+  <h3>ANOVA &amp; Post-hoc Comparisons</h3>
+  <p>A coursework example comparing mosquito landing counts across five patch treatment groups, with 30 observations per group.</p>
+  <details class="question">
+    <summary>See the model and results</summary>
+    <p>The one-way ANOVA found an overall group difference, <em>F</em>(4, 145) = 4.48, <em>p</em> = 0.00192. Tukey-adjusted comparisons found fewer landings in Group 5 than in Groups 1, 2, and 3. The outcome measured landings during one hour.</p>
+    <pre class="sql-code"><code>repellant$trt.mosq &lt;- factor(repellant$trt.mosq)
+fit &lt;- aov(y.mosq ~ trt.mosq, data = repellant)
+summary(fit)
+TukeyHSD(fit)</code></pre>
+  </details>
+</article>
+<article class="card">
+  <div class="tag">Python · scikit-learn · Classification</div>
+  <h3>Bank Marketing Classification</h3>
+  <p>Compare logistic regression, k-nearest neighbors, and Gaussian naive Bayes on the UCI Bank Marketing dataset. The notebook uses a 70/30 train–test split and confusion matrices to compare classification errors.</p>
+  <p><a href="https://github.com/KaleenaAnn/DataMonster/blob/main/Copy_of_Laberge_Kaleena_LAB_4.ipynb">Open the Jupyter notebook →</a></p>
+  <details class="question">
+    <summary>Read the evaluation note</summary>
+    <p>This coursework compares models on the available fields. A model meant to score customers before a call should exclude call duration, which becomes available after the call, and fit preprocessing on training data only.</p>
+  </details>
+</article>
+<article class="card"><div class="tag">SQL · SQLite</div><h3>Inventory &amp; Reorder Analysis</h3><p>Track stock receipts and issues in a relational database, flag parts at their reorder point, and calculate running balances.</p><a href="#sql-project">Explore the SQL queries →</a></article><article class="card"><div class="tag">Python · Document control</div><h3>Document Revision Checker</h3><p>Checks shop-floor document copies against a master register and flags outdated revisions or document IDs missing from the register.</p><a href="#revision-demo">Try the demo →</a> · <a href="https://github.com/KaleenaAnn/document-revision-checker">View the Python project →</a></article></div></section>
+
+<section class="section shell" id="revision-demo">
+  <h2>Try the Revision Checker</h2>
+  <p class="intro">Compare the sample shop-floor copies with the master register. This browser demo uses the same sample registers and comparison rules as the Python project.</p>
+  <div class="card">
+    <div class="demo-layout">
+      <table><caption>Master register</caption><thead><tr><th scope="col">Document ID</th><th scope="col">Revision</th></tr></thead><tbody><tr><td>WI-104</td><td>C</td></tr><tr><td>WI-105</td><td>A</td></tr><tr><td>WI-106</td><td>B</td></tr></tbody></table>
+      <table><caption>Shop-floor copies</caption><thead><tr><th scope="col">Document ID</th><th scope="col">Revision</th></tr></thead><tbody><tr><td>WI-104</td><td>B</td></tr><tr><td>WI-105</td><td>A</td></tr><tr><td>WI-106</td><td>B</td></tr></tbody></table>
+    </div>
+    <button class="btn" id="run-revision-check" type="button">Run Check</button>
+    <div class="demo-result" id="revision-result" role="status" aria-live="polite"></div>
+    <noscript><p>Enable JavaScript to run the browser demo.</p></noscript>
+  </div>
+</section>
+
+<section class="section shell" id="sql-project">
+  <h2>SQL Inventory &amp; Reorder Analysis</h2>
+  <p class="intro">A sample SQLite database connects suppliers, parts, and stock movements using foreign keys. Open a query to see the SQL and its output from fictional inventory records.</p>
+  <div class="card">
+    <details class="question">
+      <summary>Current stock by part</summary>
+      <p>A join connects parts to suppliers. A left join and COALESCE keep parts with zero recorded stock in the report.</p>
+      <pre class="sql-code"><code>SELECT part_id, part_name, supplier_name, on_hand, reorder_point
+FROM inventory_balances
+ORDER BY part_id;</code></pre>
+      <div class="sql-results"><table><caption>Result from the sample database</caption>
+        <thead><tr><th scope="col">Part id</th><th scope="col">Part name</th><th scope="col">Supplier name</th><th scope="col">On hand</th><th scope="col">Reorder point</th></tr></thead><tbody><tr><td>101</td><td>Connector</td><td>Coastal Components</td><td>7</td><td>10</td></tr><tr><td>102</td><td>Mounting bracket</td><td>Coastal Components</td><td>8</td><td>5</td></tr><tr><td>103</td><td>Cable assembly</td><td>Atlas Supply</td><td>8</td><td>8</td></tr><tr><td>104</td><td>Protective cap</td><td>Atlas Supply</td><td>0</td><td>4</td></tr></tbody>
+      </table></div>
+    </details>
+    <details class="question">
+      <summary>Reorder report</summary>
+      <p>A common table expression filters the inventory view for parts at or below their reorder point.</p>
+      <pre class="sql-code"><code>WITH reorder_candidates AS (
+    SELECT part_name, supplier_name, on_hand, reorder_point
+    FROM inventory_balances
+    WHERE on_hand &lt;= reorder_point
+)
+SELECT part_name, supplier_name, on_hand, reorder_point,
+       reorder_point - on_hand AS units_below_point
+FROM reorder_candidates
+ORDER BY units_below_point DESC, part_name;</code></pre>
+      <div class="sql-results"><table><caption>Result from the sample database</caption>
+        <thead><tr><th scope="col">Part name</th><th scope="col">Supplier name</th><th scope="col">On hand</th><th scope="col">Reorder point</th><th scope="col">Units below point</th></tr></thead><tbody><tr><td>Protective cap</td><td>Atlas Supply</td><td>0</td><td>4</td><td>4</td></tr><tr><td>Connector</td><td>Coastal Components</td><td>7</td><td>10</td><td>3</td></tr><tr><td>Cable assembly</td><td>Atlas Supply</td><td>8</td><td>8</td><td>0</td></tr></tbody>
+      </table></div>
+    </details>
+    <details class="question">
+      <summary>Stock movement history</summary>
+      <p>A window function calculates the running balance after each receipt or issue for the connector.</p>
+      <pre class="sql-code"><code>SELECT movement_date, quantity_change,
+       SUM(quantity_change) OVER (
+           PARTITION BY part_id
+           ORDER BY movement_date, movement_id
+           ROWS BETWEEN UNBOUNDED PRECEDING AND CURRENT ROW
+       ) AS running_balance
+FROM stock_movements
+WHERE part_id = 101
+ORDER BY movement_date, movement_id;</code></pre>
+      <div class="sql-results"><table><caption>Result from the sample database</caption>
+        <thead><tr><th scope="col">Movement date</th><th scope="col">Quantity change</th><th scope="col">Running balance</th></tr></thead><tbody><tr><td>2026-10-01</td><td>20</td><td>20</td></tr><tr><td>2026-10-03</td><td>-8</td><td>12</td></tr><tr><td>2026-10-06</td><td>-5</td><td>7</td></tr></tbody>
+      </table></div>
+    </details>
+    <p><a href="inventory-demo.sql" download>Download the SQLite script</a></p>
+  </div>
+</section>
+
+<section class="section shell" id="documentation">
+  <div class="eyebrow">03 / Professional Expertise</div>
+  <h2>Document Control &amp; Configuration Management</h2>
+  <p class="intro">15+ years of experience in aerospace, defense, and electronics manufacturing, specializing in engineering documentation, configuration management, document lifecycle control, and enterprise information systems.</p>
+
+  <div class="grid">
+    <article class="card">
+      <div class="tag">Systems Development | Electronics Manufacturing</div>
+      <h3>Delta Group Electronics</h3>
+      <p><strong>Document Control Specialist | 2011–2015</strong></p>
+      <p>Established the company's document control operations from scratch following an unexpected personnel vacancy, with no inherited procedural instructions or established guidance.</p>
+      <p>Created, implemented, generated, revised, maintained, and managed the controlled disposition of procedures and manufacturing documentation throughout their lifecycle.</p>
+      <p>Developed work instructions, PCB assembly documentation, schematics, and manufacturing traceability processes using Gerber files, GC Preview, and AutoCAD. Managed engineering changes, bills of materials, and production travelers.</p>
+    </article>
+
+    <article class="card">
+      <div class="tag">Aerospace | Defense | Government Reporting</div>
+      <h3>Lockheed Martin</h3>
+      <p><strong>Documentation &amp; Manufacturing Engineer | 2015–2016</strong></p>
+      <p>Supported the Fleet Ballistic Missile Program through engineering documentation, technical data management, and government customer reporting.</p>
+      <p>Updated the Technical Data Distribution System (TDDS) weekly using information from the Department of Energy (DOE) and Department of Defense (DoD), and prepared technical documentation reports for the U.S. Navy customer.</p>
+      <p>Managed technical data transmittals, supported Contract Data Requirements List (CDRL) deliverables, and generated Crystal Reports associated with missile and reentry body documentation.</p>
+    </article>
+
+    <article class="card">
+      <div class="tag">Technical Documentation | Consulting</div>
+      <h3>Independent Document Control &amp; Configuration Management</h3>
+      <p><strong>Self-Employed | 2016–Present</strong></p>
+      <p>Provided technical documentation, engineering change control, and document management services supporting aerospace, defense, and commercial organizations.</p>
+      <p>Managed document revisions, requests for quotation (RFQs), bills of materials (BOMs), engineering drawings, parts lists, and change orders.</p>
+      <p>Collaborated with engineering personnel, Designated Engineering Representatives (DERs), and FAA officials while maintaining documentation accuracy, traceability, and confidentiality.</p>
+    </article>
+  </div>
+</section>
+
+<section class="section shell" id="skills"><div class="eyebrow">04 / Capabilities</div><h2>Tools and strengths</h2><div class="pillbox"> <span class="pill">HTML</span><span class="pill">Python</span><span class="pill">R</span><span class="pill">SQL</span><span class="pill">Statistical analysis</span><span class="pill">Data visualization</span><span class="pill">Data validation</span><span class="pill">Technical writing</span><span class="pill">Document control</span><span class="pill">Configuration management</span><span class="pill">SharePoint</span><span class="pill">SAP</span><span class="pill">Salesforce</span><span class="pill">Microsoft 365</span><span class="pill">Engineering change control</span><span class="pill">Quality assurance</span></div></section>
+<section class="section shell" id="resume"><div class="eyebrow">05 / Résumé</div><h2>Professional experience</h2><p><button class="btn" id="print-resume" type="button" hidden>Print or save résumé as PDF</button></p><div class="timeline"><div class="role"><h3>Independent Data Annotation &amp; Technical Documentation Specialist</h3><div class="date">Self-employed · Melbourne, FL · 2016–Present</div><p>Technical documentation and structured-data work for commercial and aerospace clients, including review of engineering materials, document revisions, parts lists, and change orders. Projects emphasize accuracy, confidentiality, and deadline-driven delivery.</p></div><div class="role"><h3>Documentation &amp; Manufacturing Engineer</h3><div class="date">Lockheed Martin · Cape Canaveral, FL · July 2015–August 2016</div><p>Developed and maintained controlled technical documentation, verified revision and distribution requirements, and supported scheduled releases for the Fleet Ballistic Missile Program.</p></div><div class="role"><h3>Document Control Specialist</h3><div class="date">Delta Group Electronics · Rockledge, FL · June 2011–July 2015</div><p>Maintained manufacturing document-control workflows, supporting production accuracy and traceability for electronic components and assemblies.</p></div></div><h3 style="margin-top:34px">Education</h3><div class="edu"><p><strong>M.S., Data Science</strong> · Walden University · In progress (2026–Present)</p><p><strong>B.A.S., Business (Organizational Management)</strong> · Eastern Florida State College · 2025</p><p><strong>B.A.S., Computer Information Systems Technology (Data Science)</strong> · Eastern Florida State College · 2024</p></div><p class="note" style="margin-top:20px">This online résumé is a concise version. Contact me for a position-specific résumé.</p></section>
+<section class="section shell" id="questions">
+  <h2>Ask about my work</h2>
+  <p>Open a question to see a short answer and the portfolio section or project behind it.</p>
+  <div class="card">
+    <details class="question"><summary>What did Kaleena build at Delta Group Electronics?</summary><p>She established the company’s document control operations and managed manufacturing documents and procedures throughout their lifecycle. <a href="#documentation">Read about her document control experience</a>.</p></details>
+    <details class="question"><summary>What did she do at Lockheed Martin?</summary><p>As a Documentation &amp; Manufacturing Engineer, she updated the Technical Data Distribution System weekly using DOE and DoD information and prepared reports for the U.S. Navy customer. <a href="#documentation">Read about her engineering documentation work</a>.</p></details>
+    <details class="question"><summary>What does her Python tool check?</summary><p>It compares shop-floor document revisions with the master register and reports mismatches and unknown document IDs. <a href="#revision-demo">Run the sample check</a> or <a href="https://github.com/KaleenaAnn/document-revision-checker">read the Python source</a>.</p></details>
+    <details class="question"><summary>What did the hurricane study find?</summary><p>In the 1990–2025 dataset, year had a weak relationship with peak wind speed per storm, and the estimated linear trend was statistically nonsignificant. <a href="hurricane-study.html#compare-wind">Compare the two figures</a>.</p></details>
+  </div>
+</section>
+
+<section class="section shell" id="contact">
+  <div class="eyebrow">06 / Connect</div>
+  <h2>Let's Connect</h2>
+  <p>I'm open to opportunities in document control, configuration management, data analytics, technical documentation, and related technical roles.</p>
+  <div class="card" style="max-width:740px">
+    <p><strong>Email:</strong> kaleena.laberge@gmail.com</p>
+    <p><strong>Phone:</strong> (321) 376-1794</p>
+    <p><strong>Location:</strong> Melbourne, Florida</p>
+    <div class="actions">
+      <a class="btn" href="https://www.linkedin.com/in/kaleena-ann-laberge" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+      <a class="btn alt" href="https://github.com/KaleenaAnn" target="_blank" rel="noopener noreferrer" style="color:var(--navy)!important;border-color:#b4c4ce">GitHub</a>
+    </div>
+  </div>
+</section></main><footer class="shell">© 2026 Kaleena Ann LaBerge · Built as a static portfolio website</footer><script>
+const demo = document.getElementById('revision-demo');
+const [masterTable, copyTable] = demo.querySelectorAll('tbody');
+const readRows = table => Array.from(table.rows, row =>
+  Array.from(row.cells, cell => cell.textContent.trim())
+);
+const result = document.getElementById('revision-result');
+document.getElementById('run-revision-check').addEventListener('click', () => {
+  const master = new Map(readRows(masterTable));
+  const copies = readRows(copyTable);
+  const issues = [];
+  for (const [id, revision] of copies) {
+    if (!master.has(id)) {
+      issues.push(id + ': not in the master register');
+    } else if (master.get(id) !== revision) {
+      issues.push(id + ': shop floor Rev ' + revision + ', expected Rev ' + master.get(id));
+    }
+  }
+  const summary = document.createElement('p');
+  summary.textContent = 'Checked ' + copies.length + ' copies. Issues found: ' + issues.length + '.';
+  result.replaceChildren(summary);
+  if (issues.length) {
+    const list = document.createElement('ul');
+    for (const issue of issues) {
+      const item = document.createElement('li');
+      item.textContent = issue;
+      list.append(item);
+    }
+    result.append(list);
+  }
+});
+const printButton = document.getElementById('print-resume');
+printButton.hidden = false;
+printButton.addEventListener('click', () => window.print());
+</script>
+</body></html>
