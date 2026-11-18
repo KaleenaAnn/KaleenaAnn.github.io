@@ -50,6 +50,31 @@ header :focus-visible{outline-color:#76d3d0}
 .sql-results table{width:100%;border-collapse:collapse;text-align:left}
 .sql-results caption{text-align:left;font-weight:700;margin:4px 0}
 .sql-results th,.sql-results td{padding:6px 10px;border-bottom:1px solid var(--line)}
+
+/* LiDAR project spotlight */
+.project-spotlight{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);padding:0;overflow:hidden;margin:0 0 18px}
+.project-spotlight-media{display:flex;align-items:center;background:#142421}
+.project-spotlight-media img{display:block;width:100%;height:auto}
+.project-spotlight-body{padding:clamp(20px,4vw,38px);align-self:center}
+.project-spotlight-body h3{font-size:clamp(1.4rem,3vw,2.05rem);line-height:1.18;letter-spacing:-.035em;margin:8px 0 12px}
+.project-spotlight-body p{margin:0 0 16px}
+.project-spotlight-body .project-result{padding-left:12px;border-left:3px solid var(--teal);color:var(--ink)}
+.project-spotlight .btn{margin-top:2px}
+@media(max-width:680px){.project-spotlight{grid-template-columns:1fr}}
+
+/* Proposal review literacy: a teaching/demo panel, not a job claim */
+.review-flow{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:18px 0}
+.review-stage{border-radius:13px;padding:18px;border:1px solid var(--line);background:#fff}
+.review-stage h3{font-size:1.2rem;margin:0 0 9px}
+.review-stage.pink{border-top:6px solid #d95398}.review-stage.red{border-top:6px solid #ce4141}.review-stage.gold{border-top:6px solid #c09632}
+.review-stage p{margin:5px 0;color:var(--muted)}
+.review-stage .review-label{font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;font-weight:850}
+.review-stage.pink .review-label{color:#a62566}.review-stage.red .review-label{color:#af2e2e}.review-stage.gold .review-label{color:#896212}
+.review-quiz{background:white;border:1px solid var(--line);border-radius:13px;padding:22px;max-width:850px}
+.review-quiz label{display:block;font-weight:750;margin-bottom:10px}
+.review-quiz select{width:100%;max-width:460px;padding:11px;border-radius:7px;border:1px solid #9ba9b5;background:white;color:var(--ink);font:inherit}
+.review-quiz .result{margin:12px 0 0;min-height:2.1em;font-weight:650}
+@media(max-width:760px){.review-flow{grid-template-columns:1fr}}
 </style></head><body><header><div class="binary-edge" aria-hidden="true"><span>1001&#10;0110&#10;1011&#10;0001&#10;1100&#10;0101&#10;0010&#10;1110&#10;0011&#10;1010&#10;0111&#10;1000&#10;1101&#10;0010&#10;1011&#10;0100&#10;1001&#10;1110&#10;0011&#10;0110&#10;1100&#10;1010</span></div><div class="binary-edge right" aria-hidden="true"><span>1010&#10;1100&#10;0110&#10;0011&#10;1110&#10;1001&#10;0100&#10;1011&#10;0010&#10;1101&#10;1000&#10;0111&#10;1010&#10;0011&#10;1110&#10;0010&#10;0101&#10;1100&#10;0001&#10;1011&#10;0110&#10;1001</span></div><div class="shell"><nav><a href="#top" class="brand">Kaleena Ann LaBerge</a><div class="links"><a href="#about">About</a><a href="#projects">Projects</a><a href="#documentation">Document Control</a><a href="#skills">Skills</a><a href="#resume">Résumé</a><a href="#questions">Q&amp;A</a><a href="#contact">Contact</a></div></nav><div class="hero" id="top">
   <div>
     <h1>Data Science &amp; Document Control</h1>
@@ -74,7 +99,20 @@ header :focus-visible{outline-color:#76d3d0}
     <p>Whether I'm exploring a new artistic technique, discovering something fascinating in nature, or learning a new technical skill, curiosity has always been a driving force in my life.</p>
   </div>
 </section>
-<section class="section shell" id="projects"><div class="eyebrow">02 / Selected work</div><h2>Projects and case studies</h2><div class="grid"><article class="card"><div class="tag">R · Statistical analysis · NOAA</div><h3>Atlantic Hurricane Intensity Study, 1990–2025</h3><p>Analyzed NOAA HURDAT2 Atlantic cyclone records, cleaning approximately 17,820 six-hourly observations and aggregating 593 storms. Tested the relationship between year and maximum sustained wind using correlation, regression, and model diagnostics.</p><a href="hurricane-study.html">Read case study →</a> · <a href="https://github.com/KaleenaAnn/atlantic-hurricane-analysis" target="_blank" rel="noopener noreferrer">View GitHub repository →</a></article><article class="card"><div class="tag">SQL · SQLite</div><h3>Inventory &amp; Reorder Analysis</h3><p>Track stock receipts and issues in a relational database, flag parts at their reorder point, and calculate running balances.</p><a href="#sql-project">Explore the SQL queries →</a></article><article class="card"><div class="tag">Python · Document control</div><h3>Document Revision Checker</h3><p>Checks shop-floor document copies against a master register and flags outdated revisions or document IDs missing from the register.</p><a href="#revision-demo">Try the demo →</a> · <a href="https://github.com/KaleenaAnn/document-revision-checker">View the Python project →</a></article></div></section>
+<section class="section shell" id="projects"><div class="eyebrow">02 / Selected work</div><h2>Projects and case studies</h2>
+<article class="card project-spotlight" id="maya-lidar-project">
+  <a class="project-spotlight-media" href="https://maya-lidar-survey.lastanvil.chatgpt.site/#regional-map" aria-label="Open the Maya LiDAR regional map">
+    <img src="https://maya-lidar-survey.lastanvil.chatgpt.site/regional-overlay.webp" width="1904" height="1190" loading="lazy" alt="Map of 12 Maya survey blocks in northern Guatemala, with earlier ground surveys outlined in orange">
+  </a>
+  <div class="project-spotlight-body">
+    <div class="tag">R · Spatial analysis · LiDAR</div>
+    <h3>What the Ground Map Missed</h3>
+    <p>Mapped 61,498 archived Maya structures in northern Guatemala and compared their density inside and outside the areas archaeologists had already surveyed on foot.</p>
+    <p class="project-result"><strong>About a quarter</strong> of the recorded structures were concentrated in just <strong>6%</strong> of the LiDAR survey area.</p>
+    <a class="btn" href="https://maya-lidar-survey.lastanvil.chatgpt.site/#regional-map">Explore the LiDAR map →</a>
+  </div>
+</article>
+<div class="grid"><article class="card"><div class="tag">R · Statistical analysis · NOAA</div><h3>Atlantic Hurricane Intensity Study, 1990–2025</h3><p>Analyzed NOAA HURDAT2 Atlantic cyclone records, cleaning approximately 17,820 six-hourly observations and aggregating 593 storms. Tested the relationship between year and maximum sustained wind using correlation, regression, and model diagnostics.</p><a href="hurricane-study.html">Read case study →</a> · <a href="https://github.com/KaleenaAnn/atlantic-hurricane-analysis" target="_blank" rel="noopener noreferrer">View GitHub repository →</a></article><article class="card"><div class="tag">SQL · SQLite</div><h3>Inventory &amp; Reorder Analysis</h3><p>Track stock receipts and issues in a relational database, flag parts at their reorder point, and calculate running balances.</p><a href="#sql-project">Explore the SQL queries →</a></article><article class="card"><div class="tag">Python · Document control</div><h3>Document Revision Checker</h3><p>Checks shop-floor document copies against a master register and flags outdated revisions or document IDs missing from the register.</p><a href="#revision-demo">Try the demo →</a> · <a href="https://github.com/KaleenaAnn/document-revision-checker">View the Python project →</a></article></div></section>
 
 <section class="section shell" id="revision-demo">
   <h2>Try the Revision Checker</h2>
@@ -175,7 +213,28 @@ ORDER BY movement_date, movement_id;</code></pre>
   </div>
 </section>
 
-<section class="section shell" id="skills"><div class="eyebrow">04 / Capabilities</div><h2>Tools and strengths</h2><div class="pillbox"> <span class="pill">HTML</span><span class="pill">Python</span><span class="pill">R</span><span class="pill">SQL</span><span class="pill">Statistical analysis</span><span class="pill">Data visualization</span><span class="pill">Data validation</span><span class="pill">Technical writing</span><span class="pill">Document control</span><span class="pill">Configuration management</span><span class="pill">SharePoint</span><span class="pill">SAP</span><span class="pill">Salesforce</span><span class="pill">Microsoft 365</span><span class="pill">Engineering change control</span><span class="pill">Quality assurance</span></div></section>
+
+<section class="section shell" id="proposal-reviews">
+  <div class="eyebrow">Professional knowledge / Proposal lifecycle</div>
+  <h2>Pink, Red &amp; Gold Team Proposal Reviews</h2>
+  <p class="intro">I understand how staged proposal reviews support technical accuracy, requirements traceability, and submission readiness in regulated and competitive environments. This section demonstrates knowledge of the review framework, not a claim that I served as a formal color-team reviewer. Specific review names and approval gates can vary by organization.</p>
+  <div class="review-flow" aria-label="Three stages of proposal review">
+    <article class="review-stage pink"><div class="review-label">Stage 01 / Pink Team</div><h3>Does the draft answer the request?</h3><p>Early structure, requirements coverage, gaps, and proposed response strategy. Look for missing sections before investing in final polish.</p><p><strong>Example:</strong> Map each RFP requirement to a draft response owner.</p></article>
+    <article class="review-stage red"><div class="review-label">Stage 02 / Red Team</div><h3>Would the customer accept it?</h3><p>Critical, evaluator-style review of compliance, clarity, persuasiveness, technical credibility, and unresolved risks.</p><p><strong>Example:</strong> Challenge an unsupported claim and request evidence.</p></article>
+    <article class="review-stage gold"><div class="review-label">Stage 03 / Gold Team</div><h3>Is it approved to submit?</h3><p>Leadership readiness check: unresolved critical comments, pricing or business approvals as applicable, and final release authority.</p><p><strong>Example:</strong> Verify approval status and confirm submission package completeness.</p></article>
+  </div>
+  <div class="review-quiz" id="review-knowledge-check">
+    <h3>Try a proposal review scenario</h3>
+    <p>A fictional aerospace RFP requires a traceability matrix, but no one has mapped the requirements to draft sections yet. Which review stage is the best place to catch this early?</p>
+    <label for="review-answer">Select the review stage</label>
+    <select id="review-answer"><option value="">Choose a stage</option><option value="pink">Pink Team</option><option value="red">Red Team</option><option value="gold">Gold Team</option></select>
+    <p><button type="button" class="btn" id="review-check">Check answer</button></p>
+    <p class="result" id="review-feedback" role="status" aria-live="polite"></p>
+    <p class="note">Sample scenario for education only. No customer, proprietary proposal, or actual contract data is shown.</p>
+  </div>
+</section>
+
+<section class="section shell" id="skills"><div class="eyebrow">04 / Capabilities</div><h2>Tools and strengths</h2><div class="pillbox"> <span class="pill">HTML</span><span class="pill">Python</span><span class="pill">R</span><span class="pill">SQL</span><span class="pill">Statistical analysis</span><span class="pill">Data visualization</span><span class="pill">Data validation</span><span class="pill">Technical writing</span><span class="pill">Document control</span><span class="pill">Configuration management</span><span class="pill">SharePoint</span><span class="pill">SAP</span><span class="pill">Salesforce</span><span class="pill">Microsoft 365</span><span class="pill">Engineering change control</span><span class="pill">Quality assurance</span><span class="pill">Pink / Red / Gold Team review framework</span></div></section>
 <section class="section shell" id="resume"><div class="eyebrow">05 / Résumé</div><h2>Professional experience</h2><p><button class="btn" id="print-resume" type="button" hidden>Print or save résumé as PDF</button></p><div class="timeline"><div class="role"><h3>Independent Data Annotation &amp; Technical Documentation Specialist</h3><div class="date">Self-employed · Melbourne, FL · 2016–Present</div><p>Technical documentation and structured-data work for commercial and aerospace clients, including review of engineering materials, document revisions, parts lists, and change orders. Projects emphasize accuracy, confidentiality, and deadline-driven delivery.</p></div><div class="role"><h3>Documentation &amp; Manufacturing Engineer</h3><div class="date">Lockheed Martin · Cape Canaveral, FL · July 2015–August 2016</div><p>Developed and maintained controlled technical documentation, verified revision and distribution requirements, and supported scheduled releases for the Fleet Ballistic Missile Program.</p></div><div class="role"><h3>Document Control Specialist</h3><div class="date">Delta Group Electronics · Rockledge, FL · June 2011–July 2015</div><p>Maintained manufacturing document-control workflows, supporting production accuracy and traceability for electronic components and assemblies.</p></div></div><h3 style="margin-top:34px">Education</h3><div class="edu"><p><strong>M.S., Data Science</strong> · Walden University · In progress (2026–Present)</p><p><strong>B.A.S., Business (Organizational Management)</strong> · Eastern Florida State College · 2025</p><p><strong>B.A.S., Computer Information Systems Technology (Data Science)</strong> · Eastern Florida State College · 2024</p></div><p class="note" style="margin-top:20px">This online résumé is a concise version. Contact me for a position-specific résumé.</p></section>
 <section class="section shell" id="questions">
   <h2>Ask about my work</h2>
@@ -202,6 +261,11 @@ ORDER BY movement_date, movement_id;</code></pre>
     </div>
   </div>
 </section></main><footer class="shell">© 2026 Kaleena Ann LaBerge · Built as a static portfolio website</footer><script>
+document.getElementById('review-check').addEventListener('click',()=>{
+  const answer=document.getElementById('review-answer').value;
+  const result=document.getElementById('review-feedback');
+  result.textContent=answer==='pink' ? 'Correct. Pink Team catches missing coverage and ownership early, while the proposal is still taking shape.' : answer ? 'Not quite. The best answer is Pink Team: requirements mapping belongs early, before the detailed evaluator-style Red Team review or final Gold Team sign-off.' : 'Select a review stage first.';
+});
 const demo = document.getElementById('revision-demo');
 const [masterTable, copyTable] = demo.querySelectorAll('tbody');
 const readRows = table => Array.from(table.rows, row =>
